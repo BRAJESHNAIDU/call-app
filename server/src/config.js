@@ -16,8 +16,8 @@ const int = (value, fallback) => {
 
 // Credits each person in a call spends per minute. Billed in advance, one minute at a time.
 export const COST_PER_MINUTE = {
-  video: Math.max(1, int(process.env.COST_VIDEO, 2)),
+  video: Math.max(1, int(process.env.COST_VIDEO, 1)),
 };
 
 // Free credits given to a new account (0 = none).
-export const SIGNUP_CREDITS = int(process.env.SIGNUP_CREDITS, 0);
+export const SIGNUP_CREDITS = int(process.env.SIGNUP_CREDITS, 30);
