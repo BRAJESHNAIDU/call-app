@@ -1,0 +1,37 @@
+# Render Blueprint: one web service that builds the React client and serves it
+# from the Express server (so API, WebSocket and UI share one HTTPS origin).
+services:
+  - type: web
+    name: huddle
+    runtime: node
+    plan: free
+    buildCommand: npm run build
+    startCommand: npm start
+    healthCheckPath: /api/health
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: NODE_VERSION
+        value: "20"
+      - key: CLERK_PUBLISHABLE_KEY
+        sync: false
+      - key: CLERK_SECRET_KEY
+        sync: false
+      # Also needed at BUILD time: Vite bakes it into the client. Same value as above.
+      - key: VITE_CLERK_PUBLISHABLE_KEY
+        sync: false
+      - key: MONGODB_URI
+        sync: false # paste your MongoDB Atlas connection string in the Render dashboard
+      - key: RAZORPAY_KEY_ID
+        sync: false
+      - key: RAZORPAY_KEY_SECRET
+        sync: false
+      - key: RAZORPAY_WEBHOOK_SECRET
+        sync: false
+      # Optional but recommended: a TURN relay so calls work behind strict NATs.
+      - key: TURN_URL
+        sync: false
+      - key: TURN_USERNAME
+        sync: false
+      - key: TURN_CREDENTIAL
+        sync: false
